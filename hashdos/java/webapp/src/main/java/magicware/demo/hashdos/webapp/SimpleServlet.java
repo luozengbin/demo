@@ -50,16 +50,16 @@ public class SimpleServlet extends HttpServlet {
 		System.out.print(startLog);
 		out.print(startLog);
 		
-		out.print("+--------------------------------------------+--------------------+\n");
-		out.print("|  key                                       |  value             |\n");
-		out.print("+--------------------------------------------+--------------------+\n");
-
 		System.out.println("get request parameter ");
 		
 		Map<String, String[]> parameters = request.getParameterMap();
 		System.out.print(parameters.getClass());
 		
 		System.out.println("reading hashmap");
+		
+		//out.print("+--------------------------------------------+--------------------+\n");
+		//out.print("|  key                                       |  value             |\n");
+		//out.print("+--------------------------------------------+--------------------+\n");
 		
 		for (String key : parameters.keySet()) {
 			Object values = parameters.get(key);
