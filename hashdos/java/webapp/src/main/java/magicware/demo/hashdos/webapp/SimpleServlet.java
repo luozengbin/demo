@@ -40,43 +40,49 @@ public class SimpleServlet extends HttpServlet {
 	}
 
 	private void writeText(HttpServletRequest request, PrintWriter out) {
-
+		
+		//開始時刻
 		long start = System.currentTimeMillis();
 
-		String startLabel = ">>> SimpleServlet start process at %s \n";
-		String endLabel = "<<< SimpleServlet stop process at %s \n";
+		System.out.print(String.format(">>> SimpleServlet start process at %s \n", (new Date(start)).toString()));
 		
-		String startLog = String.format(startLabel, (new Date(start)).toString());
-		System.out.print(startLog);
-		out.print(startLog);
-		
+		//リクエストパラメータの取得
 		System.out.println("get request parameter ");
-		
 		Map<String, String[]> parameters = request.getParameterMap();
 		System.out.print(parameters.getClass());
 		
-		System.out.println("reading hashmap");
 		
-		//out.print("+--------------------------------------------+--------------------+\n");
-		//out.print("|  key                                       |  value             |\n");
-		//out.print("+--------------------------------------------+--------------------+\n");
+		//リクエストパラメータの参照
+		System.out.println("reading hashmap");
+		boolean printDetail = parameters.containsKey("detail");
+		
+		if(printDetail){
+			out.print("+--------------------------------------------+--------------------+\n");
+			out.print("|  key                                       |  value             |\n");
+			out.print("+--------------------------------------------+--------------------+\n");
+		}
 		
 		for (String key : parameters.keySet()) {
+			
+			//Hashmapから値を走査
 			Object values = parameters.get(key);
-//			out.print(String.format("|  %-40s  |  %-15s  |\n", key, /*key.hashCode())*/ 
-//					Arrays.asList(parameters.get(key)).toString()));
-//			out.print("+--------------------------------------------+--------------------+\n");
-//			out.flush();
-			//System.out.print(".");
+			
+			if(printDetail){
+				out.print(String.format("|  %-40s  |  %-15s  |\n", key, key.hashCode()));
+				out.print("+--------------------------------------------+--------------------+\n");
+				out.flush();
+			}
+			
+			System.out.print(".");
 		}
+		
 		System.out.print("\n");
 		
+		//終了時刻
 		long end = System.currentTimeMillis();
+		System.out.print(String.format("<<< SimpleServlet stop process at %s \n", (new Date(end)).toString()));
 		
-		String stopLog = String.format(endLabel, (new Date(end)).toString());
-		System.out.print(stopLog);
-		out.print(stopLog);
-
+		//レポートの作成
 		out.print("+---------------+--------------------------------+\n");
 		out.print("|  Start Time   |  " + String.format("%-28s", (new Date(start)).toString()) + "  |\n");
 		out.print("+---------------+--------------------------------+\n");
