@@ -1,0 +1,2 @@
+jetty-hightide-7.5.2.v20111006.zip
+java -Xmx1312m -Xms256m  -jar start.jar
