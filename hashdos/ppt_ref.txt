@@ -1,6 +1,6 @@
-�j���[�W�[�����h�̃I�[�N�����h��w�R���s���[�^�[�E�T�C�G���X�w����Robert Uzgalis���́A
-�X���C�h�E�V���[�ŁAJava�̃n�b�V���E���f���ւ̔ᔻ���q�ׁA�n�b�V���֐��̑I���̔w�i��
-���邢�����̖��𒲍����Ă��܂��B
+ニュージーランドのオークランド大学コンピューター・サイエンス学部のRobert Uzgalis氏は、
+スライド・ショーで、Javaのハッシュ・モデルへの批判を述べ、ハッシュ関数の選択の背景に
+あるいくつかの問題を調査しています。
 
 http://www.serve.net/buz/hash.adt/java.000.html
 
@@ -8,20 +8,101 @@ http://www.serve.net/buz/hash.adt/java.000.html
 
 15:15:48
 
-�f�[�^�擾�́@�@�@6min
-396�@493 
-523�@037 
+データ取得は　　　6min
+396　493 
+523　037 
 
-Create HashMap�@--> 4��
-Reading HashMap --> 1��
+Create HashMap　--> 4分
+Reading HashMap --> 1分
 
 15:26:02
 
-�@ 10�� -- total
+　 10分 -- total
 
-   4��  -- paser
- �@4���@-- wrapper
+   4分  -- paser
+ 　4分　-- wrapper
 
-����2��
+普通2分
 
 2
+
+http://events.ccc.de/congress/2011/Fahrplan/attachments/2007_28C3_Effective_DoS_on_web_application_platforms.pdf
+-----------------------------------------
+* ハッシュテーブルとは
+
+図：http://www.cs.rice.edu/~scrosby/hash/CrosbyWallach_UsenixSec2003.pdf
+
+* DoS攻撃とは
+
+　http://ja.wikipedia.org/wiki/DoS%E6%94%BB%E6%92%83
+
+
+* hashdos攻撃とは
+         (コカツ)
+CPU資源を枯渇させるサービス妨害攻撃
+
+hashdosの特徴は簡単（POSTリクエスト一発）でCPUを枯渇させることができるという意味で、カジュアルなDoS攻撃ができることが特徴です。
+
+* 影響を受けるプラットフォーム
+
+Perl以外の多くの言語で影響があります。
+Java(Apache Tomcat7.0.22以下、同6.0.34以下、同5.5.34以下) 、
+PHP、
+ASP.NET、
+Python、
+Ruby(1.8.7-p356以下のみ)などです。
+詳しくは、cryptanalysisの解説を参照して下さい。
+
+----------------------
+Java, 所有版本
+JRuby <= 1.6.5 （目前fix在 1.6.5.1）
+PHP <= 5.3.8, <= 5.4.0RC3 （目前fix在 5.3.9,  5.4.0RC4）
+Python, all versions
+Rubinius, all versions
+Ruby <= 1.8.7-p356 （目前fix在 1.8.7-p357, 1.9.x）
+Apache Geronimo, 所有版本
+Apache Tomcat <= 5.5.34, <= 6.0.34, <= 7.0.22 （目前fix在 5.5.35,  6.0.35,  7.0.23）
+Oracle Glassfish <= 3.1.1 （目前fix在mainline）
+Jetty, 所有版本
+Plone, 所有版本
+Rack <= 1.3.5, <= 1.2.4, <= 1.1.2 （目前fix 在 1.4.0, 1.3.6, 1.2.5, 1.1.3）
+V8 JavaScript Engine, 所有版本
+ASP.NET 没有打MS11-100补丁
+----------------------
+
+
+* 対策
+
+打补丁，把hash算法改了。
+限制POST的参数个数，限制POST的请求长度。
+最好还有防火墙检测异常的请求。
+
+
+* Tomcat環境でのhashdos対策
+** バージョンアップ
+
+- Tomcat 7 --> 7.0.23以降
+- Tomcat 6 --> 6.0.35以降
+
+**設定
+- maxParameterCount値設定
+- FailedRequestFilterの使用
+
+
+徳丸浩の日記
+(とくまるひろし)
+　　　　　　　　　　　　（こうはん）
+Webアプリケーションに対する広範なDoS攻撃手法(hashdos)の影響と対策
+http://blog.tokumaru.org/2011/12/webdoshashdos.html
+
+hashdos攻撃をmod_securityで防御する(CentOS+yum編)
+http://blog.tokumaru.org/2012/01/hashdosmodsecuritycentosyum.html
+
+hashdos攻撃をmod_securityで防御する(Ubuntu+apt-get編)
+http://blog.tokumaru.org/2012/01/hashdosmodsecurityubuntuapt-get.html
+
+Cookieによるhashdos攻撃と対策
+http://blog.tokumaru.org/2012/01/cookie-hashdos-attack-defense.html
+
+Tomcatでのhashdos攻撃対策
+http://morphmorph.com/archives/193
