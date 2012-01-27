@@ -1,0 +1,27 @@
+ニュージーランドのオークランド大学コンピューター・サイエンス学部のRobert Uzgalis氏は、
+スライド・ショーで、Javaのハッシュ・モデルへの批判を述べ、ハッシュ関数の選択の背景に
+あるいくつかの問題を調査しています。
+
+http://www.serve.net/buz/hash.adt/java.000.html
+
+
+
+15:15:48
+
+データ取得は　　　6min
+396　493 
+523　037 
+
+Create HashMap　--> 4分
+Reading HashMap --> 1分
+
+15:26:02
+
+　 10分 -- total
+
+   4分  -- paser
+ 　4分　-- wrapper
+
+普通2分
+
+2

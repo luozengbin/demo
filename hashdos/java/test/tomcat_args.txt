@@ -1,0 +1,9 @@
+set CATALINA_OPTS=-Xmx1024M -Xms256
+
+<role rolename="manager-gui"/>
+<user username="tomcat" password="tomcat" roles="manager-gui"/>
+
+<Connector port="8080" protocol="HTTP/1.1" 
+       connectionTimeout="20000" 
+       redirectPort="8443" maxPostSize="4097152" />
+

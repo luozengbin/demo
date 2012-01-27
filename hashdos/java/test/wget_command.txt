@@ -1,0 +1,1 @@
+cat 32_urls.txt  | xargs -P200 -t -n1 wget --post-file=CollisionData001.txt
